@@ -67,12 +67,13 @@ export const addCollectionAndDocuments = async (
   }
 };
 
-export const getCollections = (updateCollections) => {
+export const getCollections = (updateCollections, loadingCompleted) => {
   const collectionRef = collection(db, "collections");
 
-  onSnapshot(collectionRef, (snapShot) => {
+  return onSnapshot(collectionRef, (snapShot) => {
     const collectionsMap = convertCollections(snapShot);
     updateCollections(collectionsMap);
+    loadingCompleted();
   });
 };
 
